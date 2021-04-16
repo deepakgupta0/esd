@@ -28,7 +28,7 @@ import "../api/config/database.js";
 
 //Setup Static Folder Path
 // app.use(express.static(path.resolve(__dirname, '../public')));
-app.use(express.static('uploads'));
+app.use('/',express.static('/bin/uploads/'));
 
 //Setup Body-Parser & Cookie-Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
