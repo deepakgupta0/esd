@@ -4,10 +4,10 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, './uploads/');
     },
     filename: function (req, file, cb) {
-        cb(null, new Date().toISOString() + file.originalname);
+        cb(null, Date.now() + file.originalname);;
     }
 });
 
@@ -42,13 +42,14 @@ router.route('/items').get((req, res, next) => {
 //Seed Items To The DataBase
 router.route('/item/seed').post(upload.single('img'), (req, res, next) => {
     console.log(req.file);
-    console.log("-----------------------------------------");
+    // console.log("-----------------------------------------");
     let item = new Item({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price,
-        img: req.file.path
+        img: '/uploads/' + Date.now() + req.file.originalname,
     });
+    console.log(item);
     return item
         .save()
         .then(item => {
